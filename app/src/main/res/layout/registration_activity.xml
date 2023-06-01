@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardElevation = "20dp"
+    android:id = "@+id/reg_activit"
+    >
+
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:src="@drawable/fon_for_reg2"-->
+<!--        android:scaleType="centerCrop" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id = "@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:gravity="start"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:text=""
+            android:textAlignment="viewStart"
+            app:met_floatingLabel="highlight"
+            app:met_singleLineEllipsis="false" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/Person_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:gravity="start"
+            android:hint="Name"
+            android:inputType="text"
+            android:text=""
+            app:met_floatingLabel="highlight"
+            app:met_singleLineEllipsis="true" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/Login_regis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:gravity="start"
+            android:hint="Login"
+            android:inputType="text"
+            android:text=""
+            app:met_floatingLabel="highlight"
+            app:met_singleLineEllipsis="true" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/Phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:gravity="start"
+            android:hint="Phone"
+            android:inputType="phone"
+            android:text=""
+            app:met_floatingLabel="highlight"
+            app:met_singleLineEllipsis="true" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/Password_reg"
+            android:layout_width="375dp"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:enabled="true"
+            android:gravity="start"
+            android:hint="Password"
+            android:inputType="textEnableTextConversionSuggestions|textPassword"
+            android:text=""
+            android:textColor="#E43838"
+            app:met_floatingLabel="highlight"
+            app:met_singleLineEllipsis="true"
+            />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

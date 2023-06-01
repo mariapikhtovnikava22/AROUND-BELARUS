@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "436050294448",
+    "project_id": "aroundbelarus-5761b",
+    "storage_bucket": "aroundbelarus-5761b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436050294448:android:3ffdae99c64bcb17a1ad75",
+        "android_client_info": {
+          "package_name": "com.example.aroundbelarus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436050294448-0iem93t42je3j4fp9dlkq17civco5ial.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADVPR9yvw_ExPgptihdiy6jZhZN4iGf1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "436050294448-0iem93t42je3j4fp9dlkq17civco5ial.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
