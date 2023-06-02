@@ -5,24 +5,22 @@ import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 
-import com.example.aroundbelarus.MainActivity;
 import com.example.aroundbelarus.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class Registration
 {
@@ -58,14 +56,16 @@ public class Registration
         View regWin = inflater.inflate(R.layout.registration_activity, null);
         dialog.setView(regWin);
 
-        final MaterialEditText email, name, phone,password,login;
+        final TextInputLayout layemail, layname, layphone,laypassword,laylogin;
+        final TextInputEditText email, name, phone,password,login;
         final CardView reg_activ;
 
-        email = regWin.findViewById(R.id.email);
-        name = regWin.findViewById(R.id.Person_name);
-        phone = regWin.findViewById(R.id.Phone_number);
-        password = regWin.findViewById(R.id.Password_reg);
-        login = regWin.findViewById(R.id.Login_regis);
+
+        email = regWin.findViewById(R.id.Edit_email);
+        name = regWin.findViewById(R.id.Edit_Person_name);
+        phone = regWin.findViewById(R.id.Edit_Phone_number);
+        password = regWin.findViewById(R.id.Edit_Password_reg);
+        login = regWin.findViewById(R.id.Edit_Login_regis);
         reg_activ = regWin.findViewById(R.id.reg_activit);
 
         if (s == true)
@@ -106,27 +106,27 @@ public class Registration
 
                 if(TextUtils.isEmpty(email.getText().toString()))
                 {
-                   Error_Mess("Enter your email", "Error of registration", reg_activ);
+                   Mess("Enter your email", "Error of registration", reg_activ);
                    return;
                 }
                 if(TextUtils.isEmpty(phone.getText().toString()))
                 {
-                    Error_Mess("Enter your phone", "Error of registration", reg_activ);
+                    Mess("Enter your phone", "Error of registration", reg_activ);
                     return;
                 }
                 if(TextUtils.isEmpty(name.getText().toString()))
                 {
-                    Error_Mess("Enter your name", "Error of registration", reg_activ);
+                    Mess("Enter your name", "Error of registration", reg_activ);
                     return;
                 }
                 if(TextUtils.isEmpty(login.getText().toString()))
                 {
-                    Error_Mess("Enter your login", "Error of registration", reg_activ);
+                    Mess("Enter your login", "Error of registration", reg_activ);
                     return;
                 }
                 if(password.getText().toString().length() < 6)
                 {
-                    Error_Mess("Enter your password", "Error of registration", reg_activ);
+                    Mess("Enter your password", "Error of registration", reg_activ);
                     return;
                 }
 
@@ -149,7 +149,7 @@ public class Registration
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Error_Mess(e.getMessage(),"Error of registration", reg_activ);
+                                Mess(e.getMessage(),"Error of registration", reg_activ);
                                 return;
                             }
                         });
@@ -159,7 +159,7 @@ public class Registration
 
     }
 
-    public void Error_Mess(String mess_of_error, String type_Error, CardView reg_activ)
+    public void Mess(String mess_of_error, String type_Error, CardView reg_activ)
     {
         AlertDialog.Builder dialog = new AlertDialog.Builder(reg_activ.getContext());
         dialog.setTitle(type_Error);
@@ -168,6 +168,21 @@ public class Registration
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 showRegWindow(true);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+        return;
+    }
+
+    public void Mess(String mess_of_error, String type_Error, ConstraintLayout reg_activ)
+    {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(reg_activ.getContext());
+        dialog.setTitle(type_Error);
+        dialog.setMessage(mess_of_error);
+        dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });

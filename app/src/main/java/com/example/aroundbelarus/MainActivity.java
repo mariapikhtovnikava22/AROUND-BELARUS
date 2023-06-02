@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.aroundbelarus.Clases.Authorization;
 import com.example.aroundbelarus.Clases.Registration;
 import com.example.aroundbelarus.Clases.User;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -62,7 +63,11 @@ public class MainActivity extends AppCompatActivity {
         Log_IN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAuthWindow();
+
+               Authorization au = new Authorization(root, auth,db, MainActivity.this, users,
+                       Login.getText().toString(), Password.getText().toString(),MainActivity.this);
+               au.showAuthWindow();
+
             }
         });
 
@@ -104,148 +109,145 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void showRegWindow(boolean s ) {
-
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Registration");
-        dialog.setMessage("Enter data for registration");
-
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View regWin = inflater.inflate(R.layout.registration_activity, null);
-        dialog.setView(regWin);
-
-        final MaterialEditText email, name, phone,password,login;
-        final CardView reg_activ;
-
-        email = regWin.findViewById(R.id.email);
-        name = regWin.findViewById(R.id.Person_name);
-        phone = regWin.findViewById(R.id.Phone_number);
-        password = regWin.findViewById(R.id.Password_reg);
-        login = regWin.findViewById(R.id.Login_regis);
-        reg_activ = regWin.findViewById(R.id.reg_activit);
-
-        if (s == true)
-        {
-            email.setText(savedEmail);
-            name.setText(savedName);
-            phone.setText(savedPhone);
-            password.setText(savedPassword);
-            login.setText(savedLogin);
-
-        }
-        else
-        {
-            email.setText("");
-            name.setText("");
-            phone.setText("");
-            password.setText("");
-            login.setText("");
-
-
-        }
-
-        dialog.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
-                dialogInterface.dismiss();
-            }
-        });
-        dialog.setPositiveButton("Sign up", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
-
-                savedEmail = email.getText().toString(); // Сохранение значения поля
-                savedName = name.getText().toString();
-                savedPhone = phone.getText().toString();
-                savedPassword = password.getText().toString();
-                savedLogin = login.getText().toString();
-
-                if(TextUtils.isEmpty(email.getText().toString()))
-                {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(reg_activ.getContext());
-                    dialog.setTitle("Error of registration");
-                    dialog.setMessage("Enter your email");
-                    dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            showRegWindow(true);
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();
-                    return;
-                }
-                if(TextUtils.isEmpty(phone.getText().toString()))
-                {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(reg_activ.getContext());
-                    dialog.setTitle("Error of registration");
-                    dialog.setMessage("Enter your phone");
-                    dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            showRegWindow(true);
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    dialog.show();
-                    return;
-                }
-                if(TextUtils.isEmpty(name.getText().toString()))
-                {
-                    Snackbar.make(reg_activ,"Enter your name!",Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(login.getText().toString()))
-                {
-                    Snackbar.make(reg_activ,"Enter your login!",Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-                if(password.getText().toString().length() < 6)
-                {
-                    Snackbar.make(reg_activ,"Enter a password of at least 6 characters!",Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // Если все данные были введены, то мы регистрируем пользователя
-
-                auth.createUserWithEmailAndPassword(login.getText().toString()+"@dev.com", password.getText().toString())
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                User user = new User(name.getText().toString(),password.getText().toString(),
-                                        login.getText().toString(),email.getText().toString(),phone.getText().toString());
-
-                                users.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Snackbar.make(root, "The user is registered",Snackbar.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                AlertDialog.Builder dialog = new AlertDialog.Builder(reg_activ.getContext());
-                                dialog.setTitle("Error of registration");
-                                dialog.setMessage(e.getMessage());
-                                dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        showRegWindow(true);
-                                        dialogInterface.dismiss();
-                                    }
-                                });
-                                dialog.show();
-                                return;
-                            }
-                        });
-            }
-        });
-        dialog.show();
-
-    }
-
-
-
+//    private void showRegWindow(boolean s ) {
+//
+//        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+//        dialog.setTitle("Registration");
+//        dialog.setMessage("Enter data for registration");
+//
+//        LayoutInflater inflater = LayoutInflater.from(this);
+//        View regWin = inflater.inflate(R.layout.registration_activity, null);
+//        dialog.setView(regWin);
+//
+//        final MaterialEditText email, name, phone,password,login;
+//        final CardView reg_activ;
+//
+//        email = regWin.findViewById(R.id.email);
+//        name = regWin.findViewById(R.id.Person_name);
+//        phone = regWin.findViewById(R.id.Phone_number);
+//        password = regWin.findViewById(R.id.Password_reg);
+//        login = regWin.findViewById(R.id.Login_regis);
+//        reg_activ = regWin.findViewById(R.id.reg_activit);
+//
+//        if (s == true)
+//        {
+//            email.setText(savedEmail);
+//            name.setText(savedName);
+//            phone.setText(savedPhone);
+//            password.setText(savedPassword);
+//            login.setText(savedLogin);
+//
+//        }
+//        else
+//        {
+//            email.setText("");
+//            name.setText("");
+//            phone.setText("");
+//            password.setText("");
+//            login.setText("");
+//
+//
+//        }
+//
+//        dialog.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int which) {
+//                dialogInterface.dismiss();
+//            }
+//        });
+//        dialog.setPositiveButton("Sign up", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int which) {
+//
+//                savedEmail = email.getText().toString(); // Сохранение значения поля
+//                savedName = name.getText().toString();
+//                savedPhone = phone.getText().toString();
+//                savedPassword = password.getText().toString();
+//                savedLogin = login.getText().toString();
+//
+//                if(TextUtils.isEmpty(email.getText().toString()))
+//                {
+//                    AlertDialog.Builder dialog = new AlertDialog.Builder(reg_activ.getContext());
+//                    dialog.setTitle("Error of registration");
+//                    dialog.setMessage("Enter your email");
+//                    dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            showRegWindow(true);
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    dialog.show();
+//                    return;
+//                }
+//                if(TextUtils.isEmpty(phone.getText().toString()))
+//                {
+//                    AlertDialog.Builder dialog = new AlertDialog.Builder(reg_activ.getContext());
+//                    dialog.setTitle("Error of registration");
+//                    dialog.setMessage("Enter your phone");
+//                    dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            showRegWindow(true);
+//                            dialogInterface.dismiss();
+//                        }
+//                    });
+//                    dialog.show();
+//                    return;
+//                }
+//                if(TextUtils.isEmpty(name.getText().toString()))
+//                {
+//                    Snackbar.make(reg_activ,"Enter your name!",Snackbar.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if(TextUtils.isEmpty(login.getText().toString()))
+//                {
+//                    Snackbar.make(reg_activ,"Enter your login!",Snackbar.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if(password.getText().toString().length() < 6)
+//                {
+//                    Snackbar.make(reg_activ,"Enter a password of at least 6 characters!",Snackbar.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                // Если все данные были введены, то мы регистрируем пользователя
+//
+//                auth.createUserWithEmailAndPassword(login.getText().toString()+"@dev.com", password.getText().toString())
+//                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+//                            @Override
+//                            public void onSuccess(AuthResult authResult) {
+//                                User user = new User(name.getText().toString(),password.getText().toString(),
+//                                        login.getText().toString(),email.getText().toString(),phone.getText().toString());
+//
+//                                users.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void unused) {
+//                                        Snackbar.make(root, "The user is registered",Snackbar.LENGTH_SHORT).show();
+//                                    }
+//                                });
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                AlertDialog.Builder dialog = new AlertDialog.Builder(reg_activ.getContext());
+//                                dialog.setTitle("Error of registration");
+//                                dialog.setMessage(e.getMessage());
+//                                dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        showRegWindow(true);
+//                                        dialogInterface.dismiss();
+//                                    }
+//                                });
+//                                dialog.show();
+//                                return;
+//                            }
+//                        });
+//            }
+//        });
+//        dialog.show();
+//
+//    }
 
 }
