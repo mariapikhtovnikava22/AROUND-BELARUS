@@ -23,4 +23,12 @@
     <style name="Theme.AroundBelarus.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.AroundBelarus.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="hintTextAppearance">@style/CustomHintTextAppearance</item>
+    </style>
+
+    <style name="CustomHintTextAppearance" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">18sp</item> <!-- Задайте желаемый размер текста hint -->
+    </style>
 </resources>

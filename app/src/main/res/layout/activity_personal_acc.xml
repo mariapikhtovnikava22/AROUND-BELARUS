@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PersonalAccActivity"
+    android:background="@drawable/persaccfon"
+    android:id = "@+id/persacc_activ">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="220dp"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="Log out"
+        android:textColor="#BBBBBB"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Change_data">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailPA"
+            style="@style/CustomTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:baselineAligned="false"
+            android:textColorHint="#333C49"
+            app:boxBackgroundColor="#7083A0"
+            app:boxBackgroundMode="outline"
+            app:helperTextEnabled="false"
+            app:startIconDrawable="@drawable/ic_baseline_email_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PAEdit_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:enabled="false"
+                android:gravity="start"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:text=""
+                android:textAlignment="viewStart"
+                android:textColor="#4C576A"
+                app:met_singleLineEllipsis="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PAPerson_name"
+            style="@style/CustomTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:baselineAligned="false"
+            android:textColorHint="#333C49"
+            app:boxBackgroundColor="#7083A0"
+            app:boxBackgroundMode="outline"
+            app:helperTextEnabled="false"
+            app:startIconDrawable="@drawable/ic_baseline_person_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PAEdit_Person_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:enabled="false"
+                android:gravity="start"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textAlignment="viewStart"
+                android:textColor="#4C576A"
+                app:met_singleLineEllipsis="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PAPhone_number"
+            style="@style/CustomTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:baselineAligned="false"
+            android:textColorHint="#333C49"
+            app:boxBackgroundColor="#7083A0"
+            app:boxBackgroundMode="outline"
+            app:helperTextEnabled="false"
+            app:startIconDrawable="@drawable/ic_baseline_local_phone_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PAEdit_Phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:enabled="false"
+                android:gravity="start"
+                android:hint="Phone"
+                android:text=""
+                android:textColor="#4C576A"
+                app:met_floatingLabel="highlight"
+                app:met_singleLineEllipsis="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PALogin_regis"
+            style="@style/CustomTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:baselineAligned="false"
+            android:textColorHint="#333C49"
+            app:boxBackgroundColor="#7083A0"
+            app:boxBackgroundMode="outline"
+            app:helperTextEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PAEdit_Login_regis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:enabled="false"
+                android:gravity="start"
+                android:hint="Login"
+                android:inputType="text"
+                android:textColor="#4C576A"
+                android:text=""
+                app:met_floatingLabel="highlight"
+                app:met_singleLineEllipsis="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PAPassword_reg"
+            style="@style/CustomTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:baselineAligned="false"
+            android:textColorHint="#333C49"
+            app:boxBackgroundColor="#7083A0"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="true"
+            app:endIconMode="password_toggle"
+            app:helperTextEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PAEdit_Password_reg"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:baselineAligned="false"
+                android:textColor="#4C576A"
+                android:enabled="false"
+                android:gravity="start"
+                android:hint="Password"
+                android:text=""
+                app:met_floatingLabel="highlight"
+                app:met_singleLineEllipsis="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/Change_data"
+        android:layout_width="52dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="28dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_create_24" />
+
+    <ImageButton
+        android:id="@+id/log_outbut"
+        android:layout_width="52dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="688dp"
+        android:layout_marginEnd="88dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_login_24" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

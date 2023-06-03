@@ -13,18 +13,15 @@
         android:theme="@style/Theme.AroundBelarus"
         tools:targetApi="31">
         <activity
-            android:name=".AllProjActivity"
-            android:exported="false"
-            android:label="@string/title_activity_all_proj"
-            android:theme="@style/Theme.AroundBelarus.NoActionBar">
+            android:name=".PersonalAccActivity"
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".AllStruct"
-            android:exported="false"
-            android:label="@string/title_activity_all_struct">
+            android:name=".ActivityProj"
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

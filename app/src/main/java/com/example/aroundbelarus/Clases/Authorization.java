@@ -7,15 +7,20 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.aroundbelarus.AllProjActivity;
+
+import com.example.aroundbelarus.ActivityProj;
 import com.example.aroundbelarus.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Authorization extends Registration {
 
@@ -49,17 +54,20 @@ public class Authorization extends Registration {
             return;
         }
         ConstraintLayout root = super.root_page;
-        auth.signInWithEmailAndPassword(Login+"@dev.com", Password)
+        String for_reg = Login+"@dev.com";
+        super.auth.signInWithEmailAndPassword(for_reg, Password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        mainActivity.startActivity(new Intent(mainActivity, AllProjActivity.class));
+                        mainActivity.startActivity(new Intent(mainActivity, ActivityProj.class));
                         mainActivity.finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Snackbar.make(root,"User is not authorization on app! " + e.getMessage(),Snackbar.LENGTH_SHORT).show();
+                        String er  = e.getMessage();
+                        er = er.replace("email address", "login");
+                        Snackbar.make(root,"User is not authorization on app! " + er,Snackbar.LENGTH_SHORT).show();
                     }
                 });
     }

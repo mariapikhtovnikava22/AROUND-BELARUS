@@ -9,13 +9,6 @@
     android:id = "@+id/reg_activit"
     >
 
-<!--    <ImageView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:src="@drawable/fon_for_reg2"-->
-<!--        android:scaleType="centerCrop" />-->
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,19 +17,18 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:enabled="true"
-            app:endIconCheckable="false"
-            android:id="@+id/email"
-            app:boxBackgroundMode="outline"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="7dp"
-            >
+            android:enabled="true"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
                 android:id="@+id/Edit_email"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
                 android:gravity="start"
@@ -48,19 +40,18 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Person_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:enabled="true"
-            app:endIconCheckable="false"
-            android:id="@+id/Person_name"
-            app:boxBackgroundMode="outline"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="7dp"
-            >
+            android:enabled="true"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
                 android:id="@+id/Edit_Person_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
                 android:gravity="start"
@@ -72,39 +63,38 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Login_regis"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:enabled="true"
-            app:endIconCheckable="false"
-            android:id="@+id/Login_regis"
-            app:boxBackgroundMode="outline"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="7dp"
-            >
+            android:enabled="true"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="false">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Edit_Login_regis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/Edit_Login_regis"
                 android:baselineAligned="false"
                 android:gravity="start"
                 android:hint="Login"
                 android:inputType="text"
                 android:text=""
                 app:met_floatingLabel="highlight"
-                app:met_singleLineEllipsis="false"  />
+                app:met_singleLineEllipsis="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/Phone_number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:enabled="true"
-            app:endIconCheckable="false"
-            app:boxBackgroundMode="outline"
-            app:endIconMode="none"
             android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp">
+            android:layout_marginBottom="7dp"
+            android:enabled="true"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="false"
+            app:endIconMode="none">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/Edit_Phone_number"
@@ -128,7 +118,7 @@
             android:layout_marginTop="7dp"
             android:layout_marginBottom="7dp"
             android:enabled="true"
-            android:maxEms="2"
+            android:maxEms="10"
             app:boxBackgroundMode="outline"
             app:endIconCheckable="true"
             app:endIconMode="password_toggle">

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context=".ActivityProj"
+    android:background = "@drawable/enjholid"
+    android:id = "@+id/allprojactiv">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="393dp"
+        android:layout_height="53dp"
+        android:background="#4D94BC"
+        android:backgroundTint="#6B8B8B"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/PersonalAcc"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="270dp"
+            app:srcCompat="@drawable/ic_baseline_person_24"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/toMapActivity"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_outline_location_on_24"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="329dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/bebas_neue"
+        android:text="Top 10 best place in Belarus"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#323640"
+        android:textSize="44sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <HorizontalScrollView
+        android:layout_width="390dp"
+        android:layout_height="281dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="SpeakableTextPresentCheck">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" >
+
+            <ImageButton
+                android:id="@+id/kostel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:onClick="handleSelection"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/kostelchristmasdevamaria" />
+
+            <ImageButton
+                android:id="@+id/nesviz_castel"
+                android:layout_width="378dp"
+                android:layout_height="266dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+
+                app:layout_constraintStart_toEndOf="@+id/kostel"
+                app:layout_constraintTop_toTopOf="@id/kostel"
+                app:srcCompat="@drawable/nesviz_castel" />
+            <ImageButton
+                android:id="@+id/milozer"
+                android:layout_width="378dp"
+                android:layout_height="266dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+
+                app:layout_constraintStart_toEndOf="@+id/nesviz_castel"
+                app:layout_constraintTop_toTopOf="@id/nesviz_castel"
+                app:srcCompat="@drawable/melozer" />
+
+            <ImageButton
+                android:id="@+id/dvorrumpask"
+                android:layout_width="378dp"
+                android:layout_height="266dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+
+                app:layout_constraintStart_toEndOf="@+id/milozer"
+                app:layout_constraintTop_toTopOf="@id/milozer"
+                app:srcCompat="@drawable/dvorrumanpaskevitch" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </HorizontalScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
