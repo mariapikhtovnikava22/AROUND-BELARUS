@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardElevation = "20dp"
+    android:id = "@+id/reg_activit"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="7dp"
+            android:enabled="true"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="start"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:text=""
+                android:textAlignment="viewStart"
+                app:met_singleLineEllipsis="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Person_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:enabled="true"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Edit_Person_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="start"
+                android:hint="Name"
+                android:inputType="textEmailAddress"
+                android:text=""
+                android:textAlignment="viewStart"
+                app:met_singleLineEllipsis="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Login_regis"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:enabled="true"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Edit_Login_regis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="start"
+                android:hint="Login"
+                android:inputType="text"
+                android:text=""
+                app:met_floatingLabel="highlight"
+                app:met_singleLineEllipsis="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:enabled="true"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="false"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Edit_Phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="start"
+                android:hint="Phone"
+                android:inputType="phone"
+                android:text=""
+
+                app:met_floatingLabel="highlight"
+                app:met_singleLineEllipsis="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Password_reg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:enabled="true"
+            android:maxEms="10"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="true"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Edit_Password_reg"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:baselineAligned="false"
+                android:enabled="true"
+                android:gravity="start"
+                android:hint="Password"
+                android:inputType="textEnableTextConversionSuggestions|textPassword"
+                android:text=""
+                app:met_floatingLabel="highlight"
+                app:met_singleLineEllipsis="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/delacc_but"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#3F51B5"
+            android:text="Delete account" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

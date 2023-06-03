@@ -136,7 +136,7 @@ public class Registration
                 }
                 if(password.getText().toString().length() < 6)
                 {
-                    Mess("Enter your password", "Error of registration", reg_activ);
+                    Mess("Enter a password of at least 6 characters", "Error of registration", reg_activ);
                     return;
                 }
 
