@@ -3,6 +3,7 @@ package com.example.aroundbelarus;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.ContentUris;
@@ -48,13 +49,13 @@ public class PersonalAccActivity extends AppCompatActivity {
     DatabaseReference userRef;
     User userData;
     FirebaseDatabase db;
+    CardView change_page;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_acc);
-
         init();
         ShowData();
 
@@ -70,190 +71,10 @@ public class PersonalAccActivity extends AppCompatActivity {
         Change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PersonalAccount pa = new PersonalAccount(temp_name, temp_email,temp_phone,temp_login,temp_password, PersonalAccActivity.this, PersonalAccActivity.this,cur_page);
+                PersonalAccount pa = new PersonalAccount(temp_name, temp_email,temp_phone,temp_login,temp_password, PersonalAccActivity.this, PersonalAccActivity.this, cur_page);
                 pa.Create_DialogWin(user,LogOut,userRef);
             }
         });
-//        Change.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                AlertDialog.Builder dialog = new AlertDialog.Builder(PersonalAccActivity.this);
-//                dialog.setTitle("Updating data");
-//                dialog.setMessage("Enter data for update");
-//
-//                LayoutInflater inflater = LayoutInflater.from(PersonalAccActivity.this);
-//                View regWin = inflater.inflate(R.layout.registration_activity2, null);
-//                dialog.setView(regWin);
-//
-//                TextInputEditText emailtmp, nametmp,phonetmp,passwordtmp,logintmp;
-//                emailtmp = regWin.findViewById(R.id.Edit_email);
-//                nametmp = regWin.findViewById(R.id.Edit_Person_name);
-//                phonetmp = regWin.findViewById(R.id.Edit_Phone_number);
-//                passwordtmp = regWin.findViewById(R.id.Edit_Password_reg);
-//                logintmp = regWin.findViewById(R.id.Edit_Login_regis);
-//
-//
-//                emailtmp.setText(temp_email);
-//                nametmp.setText(temp_name);
-//                phonetmp.setText(temp_phone);
-//                passwordtmp.setText(temp_password);
-//                logintmp.setText(temp_login);
-//
-//                String for_del = logintmp.getText().toString()+"@dev.com";
-//
-//
-//                dialog.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int which) {
-//                        user.delete()
-//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void unused) {
-//                                        Snackbar.make(cur_page, "You have deleted your account",Snackbar.LENGTH_LONG).show();
-//                                        new Handler().postDelayed(new Runnable() {
-//                                            @Override
-//                                            public void run() {
-//                                                LogOut.performClick(); // Вызывайте метод выхода после задержки
-//                                            }
-//                                        }, 2000);
-//                                    }
-//                                })
-//                                .addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Snackbar.make(cur_page, "hi", Snackbar.LENGTH_SHORT).show();
-//                                    }
-//                                });
-//                        userRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void unused) {
-//
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Snackbar.make(cur_page, e.getMessage(), Snackbar.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                        auth.signInWithEmailAndPassword(for_del, passwordtmp.getText().toString())
-//                                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-//                                    @Override
-//                                    public void onSuccess(AuthResult authResult) {
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//
-//                                    }
-//                                });
-//                    }
-//                });
-//                dialog.setPositiveButton("Update", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int which) {
-//
-//                        Registration re = new Registration();
-//
-//                        if(TextUtils.isEmpty(emailtmp.getText().toString()))
-//                        {
-//                            re.Mess("Enter your email", "Update error", cur_page);
-//                            return;
-//                        }
-//                        if(TextUtils.isEmpty(phonetmp.getText().toString()))
-//                        {
-//                            re.Mess("Enter your phone", "Update error", cur_page);
-//                            return;
-//                        }
-//                        if(TextUtils.isEmpty(nametmp.getText().toString()))
-//                        {
-//                            re.Mess("Enter your name", "Update error", cur_page);
-//                            return;
-//                        }
-//                        if(TextUtils.isEmpty(logintmp.getText().toString()))
-//                        {
-//                            re.Mess("Enter your login", "Update error", cur_page);
-//                            return;
-//                        }
-//                        if(passwordtmp.getText().toString().length() < 6)
-//                        {
-//                            re.Mess("Enter your password", "Update error", cur_page);
-//                            return;
-//                        }
-//
-//                        String for_reg = logintmp.getText().toString() + "@dev.com";
-//
-//                        HashMap<String, Object> updates = new HashMap<>();
-//                        updates.put("name", nametmp.getText().toString());
-//                        updates.put("phone", phonetmp.getText().toString());
-//                        updates.put("email", emailtmp.getText().toString());
-//                        updates.put("login", logintmp.getText().toString());
-//                        updates.put("password", passwordtmp.getText().toString());
-//
-//                        userRef.updateChildren(updates)
-//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void unused) {
-//                                        Snackbar.make(cur_page, "Data has been successfully updated",Snackbar.LENGTH_SHORT).show();
-//                                    }
-//                                })
-//                                .addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Snackbar.make(cur_page, e.getMessage(),Snackbar.LENGTH_SHORT).show();
-//                                    }
-//                                });
-//
-//                        if (for_reg != "@dev.com")
-//                        {
-//                            user.updateEmail(for_reg)
-//                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void unused) {
-//                                            Snackbar.make(cur_page, "Login is update",Snackbar.LENGTH_LONG).show();
-//                                            new Handler().postDelayed(new Runnable() {
-//                                                @Override
-//                                                public void run() {
-//                                                    LogOut.performClick(); // Вызывайте метод выхода после задержки
-//                                                }
-//                                            }, 2000);
-//                                        }
-//                                    })
-//                                    .addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                            Snackbar.make(cur_page, e.getMessage(),Snackbar.LENGTH_SHORT).show();
-//                                        }
-//                                    });
-//                        }
-//                        if(passwordtmp.getText().toString() != "")
-//                        {
-//                            user.updatePassword(passwordtmp.getText().toString())
-//                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void unused) {
-//                                            Snackbar.make(cur_page, "Password is update",Snackbar.LENGTH_LONG).show();
-//                                            new Handler().postDelayed(new Runnable() {
-//                                                @Override
-//                                                public void run() {
-//                                                    LogOut.performClick(); // Вызывайте метод выхода после задержки
-//                                                }
-//                                            }, 2000);
-//                                        }
-//                                    })
-//                                    .addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                            Snackbar.make(cur_page, e.getMessage(),Snackbar.LENGTH_SHORT).show();
-//                                        }
-//                                    });
-//                        }
-//                    }
-//                });
-//                dialog.show();
-//
-//            }
-//        });
     }
 
     @Override

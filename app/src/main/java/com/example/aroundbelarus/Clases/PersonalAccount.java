@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.aroundbelarus.MainActivity;
@@ -63,6 +64,60 @@ public class PersonalAccount {
         this.root = root;
     }
 
+
+    private void Delete_Acc(FirebaseUser user,  DatabaseReference userRef)
+    {
+        this.userRef = userRef;
+        user.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Snackbar.make(root, "You have deleted your account", Snackbar.LENGTH_LONG).show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                FirebaseAuth.getInstance().signOut();
+                                pers_activ.startActivity(new Intent(context, MainActivity.class));
+                                pers_activ.finish();
+                            }
+                        }, 2000);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        userRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Snackbar.make(root, e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            }
+                        });
+                        Authorization();
+                    }
+                });
+
+    }
+
+    private void Authorization()
+    {
+        auth.signInWithEmailAndPassword(log_rofBD, passwordtmp.getText().toString())
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Snackbar.make(root, e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     public void Create_DialogWin(FirebaseUser user, ImageButton btn, DatabaseReference dbref)
     {
         this.userRef = dbref;
@@ -79,7 +134,22 @@ public class PersonalAccount {
         dialog.setNegativeButton("Delete account", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Delete_Acc(user, btn,userRef);
+                AlertDialog.Builder dialogs = new AlertDialog.Builder(root.getContext());
+                dialogs.setTitle("Warning");
+                dialogs.setMessage("Are you sure you want to delete your account?");
+                dialogs.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Delete_Acc(user,userRef);
+                    }
+                });
+                dialogs.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+                dialogs.show();
             }
         });
         dialog.setPositiveButton("Update", new DialogInterface.OnClickListener() {
@@ -184,55 +254,6 @@ public class PersonalAccount {
     }
 
 
-    private void Delete_Acc(FirebaseUser user, ImageButton btn, DatabaseReference userRef)
-    {
-        user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Snackbar.make(root, "You have deleted your account",Snackbar.LENGTH_LONG).show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        btn.performClick(); // Вызывайте метод выхода после задержки
-                    }
-                }, 2000);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Snackbar.make(root, e.getMessage(), Snackbar.LENGTH_SHORT).show();
-            }
-        });
-
-        userRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Snackbar.make(root, e.getMessage(), Snackbar.LENGTH_SHORT).show();
-            }
-        });
-
-        Authorization();
-    }
-
-    private void Authorization()
-    {
-        auth.signInWithEmailAndPassword(log_rofBD, passwordtmp.getText().toString())
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Snackbar.make(root, e.getMessage(), Snackbar.LENGTH_SHORT).show();
-                    }
-                });
-    }
 
     private void init(View regWin)
     {

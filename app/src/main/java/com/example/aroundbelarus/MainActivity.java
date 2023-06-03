@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Registration reg = new Registration(root, auth,db, MainActivity.this, users);
                 reg.showRegWindow(false);
+                FirebaseAuth.getInstance().signOut();
             }
         });
 

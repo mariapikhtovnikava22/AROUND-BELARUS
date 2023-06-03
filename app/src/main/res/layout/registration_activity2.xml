@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardElevation = "20dp"
-    android:id = "@+id/reg_activit"
     >
 
 
@@ -136,14 +135,6 @@
                 app:met_floatingLabel="highlight"
                 app:met_singleLineEllipsis="true" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/delacc_but"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="#3F51B5"
-            android:text="Delete account" />
 
     </LinearLayout>
 
