@@ -29,27 +29,6 @@ public class ActivityProj extends AppCompatActivity {
         persacc = findViewById(R.id.PersonalAcc);
         mapactiv = findViewById(R.id.toMapActivity);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String userId = user.getUid();
-
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
-
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override // получаем данные по текущему пользователю
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userData = snapshot.getValue(User.class);
-                if (userData != null)
-                {
-                    String lo = userData.getLogin();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         persacc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +36,7 @@ public class ActivityProj extends AppCompatActivity {
 
             }
         });
+
 
     }
 

@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="156dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="212dp"
         android:shadowColor="#000000"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -58,8 +58,9 @@
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:text=""
+                android:textSize="17dp"
+                android:textColor="#444F61"
                 android:textAlignment="viewStart"
-                android:textColor="#4C576A"
                 app:met_singleLineEllipsis="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,7 +89,8 @@
                 android:inputType="textPersonName"
                 android:text=""
                 android:textAlignment="viewStart"
-                android:textColor="#4C576A"
+                android:textSize="17dp"
+                android:textColor="#444F61"
                 app:met_singleLineEllipsis="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,7 +117,8 @@
                 android:gravity="start"
                 android:hint="Phone"
                 android:text=""
-                android:textColor="#4C576A"
+                android:textSize="17dp"
+                android:textColor="#444F61"
                 app:met_floatingLabel="highlight"
                 app:met_singleLineEllipsis="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -131,7 +134,9 @@
             android:textColorHint="#333C49"
             app:boxBackgroundColor="#7083A0"
             app:boxBackgroundMode="outline"
-            app:helperTextEnabled="false">
+            app:helperTextEnabled="false"
+            app:startIconDrawable="@drawable/logicon24"
+            app:startIconTint="#000000">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/PAEdit_Login_regis"
@@ -142,8 +147,9 @@
                 android:gravity="start"
                 android:hint="Login"
                 android:inputType="text"
-                android:textColor="#4C576A"
                 android:text=""
+                android:textColor="#444F61"
+                android:textSize="17dp"
                 app:met_floatingLabel="highlight"
                 app:met_singleLineEllipsis="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -162,18 +168,20 @@
             app:boxBackgroundMode="outline"
             app:endIconCheckable="true"
             app:endIconMode="password_toggle"
-            app:helperTextEnabled="false">
+            app:helperTextEnabled="false"
+            app:startIconDrawable="@drawable/ic_baseline_key_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/PAEdit_Password_reg"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:baselineAligned="false"
-                android:textColor="#4C576A"
                 android:enabled="false"
                 android:gravity="start"
                 android:hint="Password"
                 android:text=""
+                android:textColor="#444F61"
+                android:textSize="17dp"
                 app:met_floatingLabel="highlight"
                 app:met_singleLineEllipsis="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -193,9 +201,9 @@
 
     <ImageButton
         android:id="@+id/log_outbut"
-        android:layout_width="52dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="688dp"
+        android:layout_width="54dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="684dp"
         android:layout_marginEnd="88dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"

@@ -29,6 +29,6 @@
     </style>
 
     <style name="CustomHintTextAppearance" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="android:textSize">18sp</item> <!-- Задайте желаемый размер текста hint -->
+        <item name="android:textSize">19dp</item> <!-- Задайте желаемый размер текста hint -->
     </style>
 </resources>

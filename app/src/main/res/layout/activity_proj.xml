@@ -53,11 +53,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <HorizontalScrollView
-        android:layout_width="390dp"
-        android:layout_height="281dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="398dp"
+        android:layout_height="322dp"
+
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:ignore="SpeakableTextPresentCheck">
@@ -65,14 +66,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <ImageButton
                 android:id="@+id/kostel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="44dp"
                 android:onClick="handleSelection"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -80,33 +81,31 @@
 
             <ImageButton
                 android:id="@+id/nesviz_castel"
-                android:layout_width="378dp"
-                android:layout_height="266dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-
-                app:layout_constraintStart_toEndOf="@+id/kostel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:onClick="handleSelection"
+                app:layout_constraintStart_toEndOf="@id/kostel"
                 app:layout_constraintTop_toTopOf="@id/kostel"
                 app:srcCompat="@drawable/nesviz_castel" />
+
             <ImageButton
                 android:id="@+id/milozer"
-                android:layout_width="378dp"
-                android:layout_height="266dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-
-                app:layout_constraintStart_toEndOf="@+id/nesviz_castel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:onClick="handleSelection"
+                app:layout_constraintStart_toEndOf="@id/nesviz_castel"
                 app:layout_constraintTop_toTopOf="@id/nesviz_castel"
                 app:srcCompat="@drawable/melozer" />
 
             <ImageButton
                 android:id="@+id/dvorrumpask"
-                android:layout_width="378dp"
-                android:layout_height="266dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-
-                app:layout_constraintStart_toEndOf="@+id/milozer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:onClick="handleSelection"
+                app:layout_constraintStart_toEndOf="@id/milozer"
                 app:layout_constraintTop_toTopOf="@id/milozer"
                 app:srcCompat="@drawable/dvorrumanpaskevitch" />
 

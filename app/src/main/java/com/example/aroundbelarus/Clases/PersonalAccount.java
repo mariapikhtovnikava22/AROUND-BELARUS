@@ -73,33 +73,33 @@ public class PersonalAccount {
                     @Override
                     public void onSuccess(Void unused) {
                         Snackbar.make(root, "You have deleted your account", Snackbar.LENGTH_LONG).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                FirebaseAuth.getInstance().signOut();
-                                pers_activ.startActivity(new Intent(context, MainActivity.class));
-                                pers_activ.finish();
-                            }
-                        }, 2000);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        userRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Snackbar.make(root, e.getMessage(), Snackbar.LENGTH_SHORT).show();
-                            }
-                        });
                         Authorization();
                     }
                 });
+        userRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        FirebaseAuth.getInstance().signOut();
+                        pers_activ.startActivity(new Intent(context, MainActivity.class));
+                        pers_activ.finish();
+                    }
+                }, 2000);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Snackbar.make(root, e.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -163,7 +163,7 @@ public class PersonalAccount {
                 UpdateRealTimeBD(updates,userRef);
                 if (!log_rofBD.equals(firstdataLogin+"@dev.com"))
                 {
-                    UpdateAuthBDLogin(btn,user);
+                    UpdateAuthBDLogin(btn,user, log_rofBD);
                 }
                 String n = passwordtmp.getText().toString();
                 if(!passwordtmp.getText().toString().equals(firstDataPassword))
@@ -177,7 +177,7 @@ public class PersonalAccount {
 
     }
 
-    private void UpdateAuthBDLogin(ImageButton btn, FirebaseUser user)
+    private void UpdateAuthBDLogin(ImageButton btn, FirebaseUser user, String log_rofBD)
     {
         user.updateEmail(log_rofBD)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {

@@ -49,7 +49,6 @@ public class PersonalAccActivity extends AppCompatActivity {
     DatabaseReference userRef;
     User userData;
     FirebaseDatabase db;
-    CardView change_page;
 
 
     @Override
