@@ -1,42 +1,25 @@
 package com.example.aroundbelarus;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.ContentUris;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.example.aroundbelarus.Clases.Authorization;
 import com.example.aroundbelarus.Clases.PersonalAccount;
-import com.example.aroundbelarus.Clases.Registration;
 import com.example.aroundbelarus.Clases.User;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
-import java.util.List;
 
 public class PersonalAccActivity extends AppCompatActivity {
     ImageButton LogOut, Change;
@@ -90,7 +73,7 @@ public class PersonalAccActivity extends AppCompatActivity {
         password = findViewById(R.id.PAEdit_Password_reg);
         login = findViewById(R.id.PAEdit_Login_regis);
 
-        LogOut = findViewById(R.id.log_outbut);
+        LogOut = findViewById(R.id.log_outbutmoder);
         Change = findViewById(R.id.Change_data);
         cur_page = findViewById(R.id.persacc_activ);
 

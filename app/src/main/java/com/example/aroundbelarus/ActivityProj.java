@@ -36,10 +36,14 @@ public class ActivityProj extends AppCompatActivity {
 
             }
         });
-
+        mapactiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ActivityProj.this, MapActivity.class));
+            }
+        });
 
     }
-
 
     public void handleSelection(View view)
     {
