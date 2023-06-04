@@ -89,8 +89,9 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser cUser = auth.getCurrentUser();
         if(cUser != null)
         {
-             startActivity(new Intent(MainActivity.this, ActivityProj.class));
-             finish();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+            Authorization aut = new Authorization();
+            aut.Check(this, userRef);
         }
         else
         {

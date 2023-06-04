@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ModeratorAcc"
     android:background = "@drawable/moderacc"
+    android:id = "@+id/moderactivity"
     >
 
     <TextView
@@ -18,58 +19,51 @@
         android:textColor="#194257"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.205"
+        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="220dp"
+        android:backgroundTint="#03588E"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:id="@+id/allmarksbtn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="140dp"
-            android:backgroundTint="#006193"
-            android:text="All marks"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#03588E"
+            android:text="Show all marks" />
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
+            android:id="@+id/addnewbtn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="#006391"
-            android:text="Add new mark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.12"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="#03588E"
+            android:text="Add new mark" />
 
         <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
+            android:id="@+id/openmapbtn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="#006391"
-            android:text="Open the map"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.131"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
-
+            android:backgroundTint="#03588E"
+            android:text="Open map" />
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/log_outbutmoder"
         android:layout_width="54dp"
         android:layout_height="57dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="#FEFEFE"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
