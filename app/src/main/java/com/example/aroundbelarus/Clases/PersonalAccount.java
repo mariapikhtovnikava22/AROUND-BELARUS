@@ -43,7 +43,6 @@ public class PersonalAccount {
     User userData;
     FirebaseDatabase db;
     Context context;
-    String log_rofBD;
     PersonalAccActivity pers_activ;
     ConstraintLayout root;
     String firstdataLogin, firstDataPassword;
@@ -105,10 +104,12 @@ public class PersonalAccount {
 
     private void Authorization()
     {
+        String log_rofBD = logintmp.getText().toString()+"@dev.com";
         auth.signInWithEmailAndPassword(log_rofBD, passwordtmp.getText().toString())
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+                        Snackbar.make(root, "jfdlk", Snackbar.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -161,6 +162,7 @@ public class PersonalAccount {
                 }
                 HashMap<String, Object> updates = create_HashMap();
                 UpdateRealTimeBD(updates,userRef);
+                String log_rofBD = logintmp.getText().toString();
                 if (!log_rofBD.equals(firstdataLogin+"@dev.com"))
                 {
                     UpdateAuthBDLogin(btn,user, log_rofBD);
@@ -179,7 +181,8 @@ public class PersonalAccount {
 
     private void UpdateAuthBDLogin(ImageButton btn, FirebaseUser user, String log_rofBD)
     {
-        user.updateEmail(log_rofBD)
+        String log = logintmp.getText().toString() + "@dev.com";
+        user.updateEmail(log)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
@@ -187,9 +190,9 @@ public class PersonalAccount {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    btn.performClick(); // Вызывайте метод выхода после задержки
+                                    btn.performClick();
                                 }
-                            }, 2000);
+                            }, 4000);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -267,7 +270,6 @@ public class PersonalAccount {
         phonetmp.setText(temp_phone);
         passwordtmp.setText(temp_password);
         logintmp.setText(temp_login);
-        log_rofBD =  logintmp.getText().toString()+"@dev.com";
     }
 
     private boolean Check()

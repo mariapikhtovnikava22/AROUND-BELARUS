@@ -33,7 +33,11 @@ public class Authorization extends Registration {
     String Login, Password;
     MainActivity mainActivity;
     DatabaseReference userRef;
-    boolean a;
+    FirebaseDatabase database;
+    FirebaseUser currentUser;
+    boolean tempmod, tmpadmin;
+    String userId;
+    DatabaseReference currentUserRef;
 
 
     public Authorization(ConstraintLayout root_page, FirebaseAuth auth, FirebaseDatabase db, Context context, DatabaseReference users, String Login, String Password, MainActivity mn)
@@ -66,9 +70,10 @@ public class Authorization extends Registration {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-
+                        database = FirebaseDatabase.getInstance();
+                        currentUser = FirebaseAuth.getInstance().getCurrentUser();
                         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-                        Check(mainActivity, userRef);
+                        Check(mainActivity, userRef, Login);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -81,23 +86,41 @@ public class Authorization extends Registration {
 
     }
 
-    public void Check(MainActivity mainActivity, DatabaseReference userRef) {
-        ConstraintLayout root = super.root_page;
+    public void Check(MainActivity mainActivity, DatabaseReference userRef, String Login) {
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean moderator, admin;
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    String login = userSnapshot.child("login").getValue(String.class);
-                    if(login.equals("moderator")) {
-                        mainActivity.startActivity(new Intent(mainActivity, ModeratorAcc.class));
-                        mainActivity.finish();
-                        return;
+                    String templog = userSnapshot.child("login").getValue(String.class);
+                    if (templog.equals(Login))
+                    {
+                        moderator = Boolean.TRUE.equals(userSnapshot.child("moderator").getValue(boolean.class));
+                        admin = Boolean.TRUE.equals(userSnapshot.child("admin").getValue(boolean.class));
+                        if(moderator)
+                        {
+                            tempmod = true;
+                        }
+                        if(admin)
+                        {
+                            tmpadmin =true;
+                        }
                     }
+
                 }
-                mainActivity.startActivity(new Intent(mainActivity, ActivityProj.class));
-                mainActivity.finish();
-                // Здесь можно выполнить дополнительные действия с переменной "a" или вызвать другие методы, которым требуется результат
+                if(tempmod)
+                {
+                    mainActivity.startActivity(new Intent(mainActivity, ModeratorAcc.class));
+                    mainActivity.finish();
+                    return;
+                }
+                else
+                {
+                    mainActivity.startActivity(new Intent(mainActivity, ActivityProj.class));
+                    mainActivity.finish();
+                    return;
+                }
             }
 
             @Override

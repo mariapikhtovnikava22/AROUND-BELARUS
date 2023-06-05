@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.aroundbelarus.Clases.MapSingleton;
 import com.example.aroundbelarus.Clases.Mark;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -51,52 +52,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
-        database = FirebaseDatabase.getInstance();
-        markersRef = database.getReference("markers");
-        markerId = markersRef.push().getKey(); // Генерируем уникальный идентификатор метки
-        Float latitude, longitude;
-        latitude = 53.2281f;
-        longitude = 26.6994f;
-
-        String key = String.format(Locale.getDefault(), "%.6f_%.6f", latitude, longitude);
-
-        Mark marker = new Mark();
-        marker.setName("Название метки");
-        marker.setDescription("Описание метки");
-        marker.setCategory("Категория метки");
-        marker.setLatitude(53.2281f);
-        marker.setLongitude(26.6994f);
-
-        markersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // Метка с такими координатами уже существует
-                    Toast.makeText(getApplicationContext(), "Метка уже существует", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Добавляем новую метку
-                    markersRef.setValue(marker)
-                            .addOnSuccessListener(aVoid -> {
-                                // Метка успешно добавлена в базу данных
-                                Toast.makeText(getApplicationContext(), "Метка добавлена", Toast.LENGTH_SHORT).show();
-                            })
-                            .addOnFailureListener(e -> {
-                                // Ошибка при добавлении метки в базу данных
-                                Toast.makeText(getApplicationContext(), "Ошибка при добавлении метки", Toast.LENGTH_SHORT).show();
-                            });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Ошибка чтения данных из базы данных
-                Toast.makeText(getApplicationContext(), "Ошибка чтения данных", Toast.LENGTH_SHORT).show();
-            }
-        });
-
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         curLocbtn = findViewById(R.id.cur_locationBut);
@@ -134,7 +92,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onSuccess(Location location) {
                 if (location != null) {
                     current_locatoin = location;
-                    AddMark((float) current_locatoin.getLatitude(), (float) current_locatoin.getLongitude(), "You");
+                    ShowMyCurrentLocation((float) current_locatoin.getLatitude(), (float) current_locatoin.getLongitude(), "You");
                 }
             }
         });
@@ -146,7 +104,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         LatLng southwestBound = new LatLng(51.259920, 23.178448); // Юго-западная граница
         LatLng northeastBound = new LatLng(56.166726, 32.767492); // Северо-восточная граница
         LatLngBounds belarusBounds = new LatLngBounds(southwestBound, northeastBound);
-        my_Map.setLatLngBoundsForCameraTarget(belarusBounds);
+        int padding = 100; // Отступы в пикселях
+        my_Map.moveCamera(CameraUpdateFactory.newLatLngBounds(belarusBounds, padding));
+        MapSingleton.getInstance().setGoogleMap(googleMap);
 
 
     }
@@ -162,6 +122,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Toast.makeText(this, "Location permission is denied, please allow the permission", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void ShowMyCurrentLocation(Float coord1, Float coord2, String mess) {
+        LatLng place = new LatLng(coord1, coord2);
+        my_Map.addMarker(new MarkerOptions().position(place).title(mess));
+        float zoomLevel = 17.0f; // Уровень приближения
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place, zoomLevel);
+        my_Map.animateCamera(cameraUpdate);
     }
 
     public void AddMark(Float coord1, Float coord2, String mess) {

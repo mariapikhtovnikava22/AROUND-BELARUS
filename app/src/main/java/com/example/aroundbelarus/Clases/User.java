@@ -9,6 +9,8 @@ public class User
     private String login;
     private String email;
     private String number;
+    private boolean admin;
+    private boolean moderator;
 
     public  User(){}
     public User(String name,String password, String Login, String email, String number)
@@ -18,6 +20,8 @@ public class User
         this.login = Login;
         this.email = email;
         this.number = number;
+        admin = false;
+        moderator = false;
     }
 
     public String getName()
@@ -40,6 +44,12 @@ public class User
     {
         return number;
     }
+
+    public boolean getAdmin(){return this.admin;}
+    public boolean getModerator(){return this.moderator;}
+    public void SetAdmin(boolean a){this.admin = a;}
+    public void SetModerator(boolean a){this.moderator = a;}
+
 
     public void SetName(String name)
     {

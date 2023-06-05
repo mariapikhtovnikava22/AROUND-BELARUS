@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addmarkactiv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/addmarkfon">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/markname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:textColorHint="#040000"
+            android:layout_marginBottom="7dp"
+            android:enabled="true"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Editmarkname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="start"
+                android:hint="Mark Name"
+                android:inputType="textEmailAddress"
+                android:textAlignment="viewStart"
+                app:met_singleLineEllipsis="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/latitudeact"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:enabled="true"
+            android:textColorHint="#040000"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/latitudeEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="start"
+                android:hint="Latitude"
+                android:inputType="phone"
+                app:met_floatingLabel="highlight"
+                app:met_singleLineEllipsis="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/longitudeact"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:enabled="true"
+            android:textColorHint="#040000"
+            app:boxBackgroundMode="outline"
+            app:endIconCheckable="false"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/longitudeEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="start"
+                android:hint="Longitude"
+                android:inputType="phone"
+                app:met_floatingLabel="highlight"
+                app:met_singleLineEllipsis="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/DescriptionaAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:enabled="true"
+            android:textColorHint="#040000"
+            app:boxBackgroundMode="outline"
+            app:counterEnabled="true"
+            app:counterMaxLength="1000"
+            app:counterTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Edit_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:enabled="true"
+                android:gravity="top"
+                android:hint="Description"
+                android:inputType="textMultiLine"
+                android:maxLength="1000"
+                app:met_floatingLabel="highlight"
+                app:met_singleLineEllipsis="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/abril_fatface"
+                android:text="Select mark type"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+
+            <RadioGroup
+                android:id="@+id/selecttypegroup"
+                android:layout_width="254dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+
+                <RadioButton
+                    android:id="@+id/entertainmentssel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:buttonTint="#3F51B5"
+                    android:text="entertainments" />
+
+                <RadioButton
+                    android:id="@+id/foodsel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:buttonTint="#3F51B5"
+
+                    android:onClick="CheckButton"
+                    android:text="food" />
+
+                <RadioButton
+                    android:id="@+id/hotelssel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:buttonTint="#3F51B5"
+
+                    android:onClick="CheckButton"
+                    android:text="hotels" />
+
+                <RadioButton
+                    android:id="@+id/naturesel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:buttonTint="#3F51B5"
+                    android:onClick="CheckButton"
+                    android:text="nature" />
+
+                <RadioButton
+                    android:id="@+id/attractionssel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#3F51B5"
+                    android:checked="true"
+                    android:onClick="CheckButton"
+                    android:text="attractions" />
+
+                <RadioButton
+                    android:id="@+id/historicalsel"
+                    android:layout_width="104dp"
+                    android:layout_height="wrap_content"
+
+                    android:buttonTint="#3F51B5"
+                    android:onClick="CheckButton"
+                    android:text="historical" />
+
+
+                <Button
+                    android:id="@+id/applybtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#7D8886"
+                    android:text="Apply" />
+
+
+            </RadioGroup>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

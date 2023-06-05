@@ -10,7 +10,7 @@ public class ModeratorAccount {
     String markerId;
 
 
-    public void CreateListofMarks()
+    public void AddMarks()
     {
 
     }

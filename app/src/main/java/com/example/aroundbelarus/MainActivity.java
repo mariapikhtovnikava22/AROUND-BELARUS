@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.service.autofill.UserData;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase db;
     DatabaseReference users;
     ConstraintLayout root;
+    String tmpLogin;
+    User userData;
 
 
     @Override
@@ -87,17 +91,48 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser cUser = auth.getCurrentUser();
+
         if(cUser != null)
         {
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-            Authorization aut = new Authorization();
-            aut.Check(this, userRef);
+            String userId = cUser.getUid();
+            DatabaseReference userRef;
+            userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    final DatabaseReference userReference = userRef;
+                    userData = snapshot.getValue(User.class);
+                    if(userData != null)
+                    {
+                        tmpLogin = userData.getLogin();
+                        if(userData.getModerator())
+                        {
+                            startActivity(new Intent(MainActivity.this, ModeratorAcc.class));
+                            finish();
+
+                        }
+                        else
+                        {
+                            startActivity(new Intent(MainActivity.this, ActivityProj.class));
+                            finish();
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         }
         else
         {
             return;
         }
     }
+
 
     @Override
     public void onBackPressed() {
