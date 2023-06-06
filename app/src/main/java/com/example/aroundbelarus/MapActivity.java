@@ -2,11 +2,14 @@ package com.example.aroundbelarus;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Camera;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -39,7 +42,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -52,12 +57,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     DatabaseReference markersRef;
     String markerId;
     HashMap<String, Mark> listofmarks;
+    SearchView mapserchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        mapserchView = findViewById(R.id.mapSearch);
 
         listofmarks = new HashMap<>();
 
@@ -79,6 +87,36 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
+
+        mapserchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                 String Location = mapserchView.getQuery().toString();
+                 List<Address> addressList = null;
+                 if(Location != null)
+                 {
+                     Geocoder geocoder = new Geocoder(MapActivity.this);
+                     try {
+                         addressList = geocoder.getFromLocationName(Location,1 );
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     }
+                     Address address = addressList.get(0);
+                     LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                     my_Map.addMarker(new MarkerOptions().position(latLng).title(Location));
+                     my_Map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                 }
+
+                 return false;
+
+
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         requestLocationPermission();

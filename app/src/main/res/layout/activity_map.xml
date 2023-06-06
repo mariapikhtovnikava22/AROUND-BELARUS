@@ -25,4 +25,17 @@
         app:layout_constraintEnd_toEndOf="@+id/map"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_my_location_24" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/mapSearch"
+        android:layout_width="365dp"
+        android:layout_height="48dp"
+        android:layout_margin="10dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="Search..."
+        android:elevation="5dp"
+        android:background = "@drawable/for_search"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
