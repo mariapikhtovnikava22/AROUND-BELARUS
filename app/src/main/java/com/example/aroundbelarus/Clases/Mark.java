@@ -1,5 +1,7 @@
 package com.example.aroundbelarus.Clases;
 
+import com.google.android.gms.maps.model.Marker;
+
 import java.util.List;
 
 public class Mark {

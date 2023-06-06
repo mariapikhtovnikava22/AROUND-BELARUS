@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/addmarkfon">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,17 +26,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="7dp"
-            android:textColorHint="#040000"
             android:layout_marginBottom="7dp"
             android:enabled="true"
+            android:textColorHint="#040000"
             app:boxBackgroundMode="outline"
-            app:endIconCheckable="false">
+            app:endIconCheckable="false"
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/Editmarkname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
+                android:enabled="false"
                 android:gravity="start"
                 android:hint="Mark Name"
                 android:inputType="textEmailAddress"
@@ -49,13 +55,15 @@
             android:enabled="true"
             android:textColorHint="#040000"
             app:boxBackgroundMode="outline"
-            app:endIconCheckable="false">
+            app:endIconCheckable="false"
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/latitudeEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
+                android:enabled="false"
                 android:gravity="start"
                 android:hint="Latitude"
                 android:inputType="phone"
@@ -73,13 +81,14 @@
             android:textColorHint="#040000"
             app:boxBackgroundMode="outline"
             app:endIconCheckable="false"
-            app:endIconMode="none">
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/longitudeEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
+                android:enabled="false"
                 android:gravity="start"
                 android:hint="Longitude"
                 android:inputType="phone"
@@ -99,14 +108,15 @@
             app:boxBackgroundMode="outline"
             app:counterEnabled="true"
             app:counterMaxLength="1000"
-            app:counterTextColor="@color/black">
+            app:counterTextColor="@color/black"
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/Edit_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
-                android:enabled="true"
+                android:enabled="false"
                 android:gravity="top"
                 android:hint="Description"
                 android:inputType="textMultiLine"
@@ -201,6 +211,7 @@
                     android:id="@+id/applybtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp"
                     android:backgroundTint="#7D8886"
                     android:text="Apply" />
 
@@ -209,5 +220,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

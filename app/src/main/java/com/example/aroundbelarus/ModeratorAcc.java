@@ -82,6 +82,7 @@ public class ModeratorAcc extends AppCompatActivity {
 
     }
 
+
     public void Mess(String mess_of_error, String type_Error, CardView reg_activ)
     {
         AlertDialog.Builder dialog = new AlertDialog.Builder(reg_activ.getContext());

@@ -7,22 +7,22 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.aroundbelarus.Clases.MapSingleton;
 import com.example.aroundbelarus.Clases.Mark;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -42,7 +42,6 @@ public class Addmarks extends AppCompatActivity {
     Button applybtn;
     String savedname, savelat, savelong, savedescrip, typemark;
     RadioButton saveragiobutton;
-    CardView reg_activ;
     FirebaseDatabase database;
     DatabaseReference markersRef;
     TextInputEditText latitudeEdit, longitudeEdit, Edit_description, Editmarkname;
@@ -56,6 +55,8 @@ public class Addmarks extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addmarks);
         add_activ = findViewById(R.id.addmarkactiv);
+
+
 
         latitudeEdit = findViewById(R.id.latitudeEdit);
         longitudeEdit = findViewById(R.id.longitudeEdit);
@@ -84,22 +85,29 @@ public class Addmarks extends AppCompatActivity {
                     longitudeEdit.setText(savelong);
                     Edit_description.setText(savedescrip);
                     Editmarkname.setText(savedname);
-                    applybtn.performClick();
+                    return;
                 }
-
+                if(!isValidCoordinates(Float.parseFloat(latitudeEdit.getText().toString()),Float.parseFloat(longitudeEdit.getText().toString())))
+                {
+                    latitudeEdit.setText(savelat);
+                    longitudeEdit.setText(savelong);
+                    Edit_description.setText(savedescrip);
+                    Editmarkname.setText(savedname);
+                    Toast.makeText(Addmarks.this, "Invalid coordinates", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 AddDatainBD();
-
-
-
             }
         });
 
     }
 
-
-    public void AddMarks()
-    {
-
+    private boolean isValidCoordinates(Float lat, Float lng) {
+        if (lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -109,7 +117,7 @@ public class Addmarks extends AppCompatActivity {
         saveragiobutton = findViewById(radioId);
     }
 
-    public void GetAllObjectinBD() // перенести в другую функцию
+    public void GetAllObjectinBD(FirebaseDatabase database, HashMap<String, Mark> listofmarks) // перенести в другую функцию
     {
         DatabaseReference marksRef = database.getReference("marks");
 
@@ -179,22 +187,22 @@ public class Addmarks extends AppCompatActivity {
     {
         if(TextUtils.isEmpty(Editmarkname.getText().toString()))
         {
-            Mess("Fill in all the details", "Error of add mark", reg_activ);
+            Mess("Fill in all the details", "Error of add mark", add_activ);
             return false;
         }
         if(TextUtils.isEmpty(latitudeEdit.getText().toString()))
         {
-            Mess("Fill in all the details", "Error of add mark", reg_activ);
+            Mess("Fill in all the details", "Error of add mark", add_activ);
             return false;
         }
         if(TextUtils.isEmpty(longitudeEdit.getText().toString()))
         {
-            Mess("Fill in all the details", "Error of add mark", reg_activ);
+            Mess("Fill in all the details", "Error of add mark", add_activ);
             return false;
         }
         if(TextUtils.isEmpty(Edit_description.getText().toString()))
         {
-            Mess("Fill in all the details", "Error of add mark", reg_activ);
+            Mess("Fill in all the details", "Error of add mark", add_activ);
             return false;
         }
 
@@ -202,7 +210,7 @@ public class Addmarks extends AppCompatActivity {
 
     }
 
-    public void Mess(String mess_of_error, String type_Error, CardView reg_activ)
+    public void Mess(String mess_of_error, String type_Error, ConstraintLayout reg_activ)
     {
         AlertDialog.Builder dialog = new AlertDialog.Builder(reg_activ.getContext());
         dialog.setTitle(type_Error);

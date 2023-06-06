@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +39,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -49,12 +51,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     FirebaseDatabase database;
     DatabaseReference markersRef;
     String markerId;
+    HashMap<String, Mark> listofmarks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        listofmarks = new HashMap<>();
+
+        database = FirebaseDatabase.getInstance();
+
+        GetAllObjectinBD(database);
+
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         curLocbtn = findViewById(R.id.cur_locationBut);
@@ -72,6 +82,117 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         requestLocationPermission();
+    }
+
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        my_Map = googleMap;
+        LatLng southwestBound = new LatLng(51.259920, 23.178448); // Юго-западная граница
+        LatLng northeastBound = new LatLng(56.166726, 32.767492); // Северо-восточная граница
+        LatLngBounds belarusBounds = new LatLngBounds(southwestBound, northeastBound);
+        int padding = 100; // Отступы в пикселях
+        my_Map.moveCamera(CameraUpdateFactory.newLatLngBounds(belarusBounds, padding));
+        if(listofmarks.size() != 0)
+        {
+            for (Mark mark : listofmarks.values()) {
+                AddMarkonMap(mark.getLatitude(),mark.getLongitude(),mark.getName(),mark.getCategory());
+            }
+        }
+    }
+
+    public void AddMarkonMap(Float coord1, Float coord2, String mess, String typemark)
+    {
+        LatLng place = new LatLng(coord1, coord2);
+        MarkerOptions markerOptions = setMark(typemark, place, mess);
+        my_Map.addMarker(markerOptions);
+
+    }
+
+    public MarkerOptions setMark(String typemark, LatLng place, String mess)
+    {
+        MarkerOptions markerOptions;
+        float hue;
+        switch (typemark) {
+            case "entertainments":
+//                Bitmap markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.complexmark);
+//                Bitmap resizedBitmap = Bitmap.createScaledBitmap(markerBitmap, 30, 30, false);
+                hue  = BitmapDescriptorFactory.HUE_ROSE;
+                markerOptions = new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.defaultMarker(hue))
+                        .position(place)
+                        .title(mess);
+                return markerOptions;
+
+            case "food":
+                  hue = BitmapDescriptorFactory.HUE_VIOLET;
+                 markerOptions = new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.defaultMarker(hue))
+                        .position(place)
+                        .title(mess);
+                return markerOptions;
+
+            case "hotels":
+                hue = BitmapDescriptorFactory.HUE_ORANGE;
+                markerOptions = new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.defaultMarker(hue))
+                        .position(place)
+                        .title(mess);
+                return markerOptions;
+            case "nature":
+                hue = BitmapDescriptorFactory.HUE_GREEN;
+                markerOptions = new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.defaultMarker(hue))
+                        .position(place)
+                        .title(mess);
+                return markerOptions;
+            case "attractions":
+                hue = BitmapDescriptorFactory.HUE_BLUE;
+                markerOptions = new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.defaultMarker(hue))
+                        .position(place)
+                        .title(mess);
+                return markerOptions;
+            case "historical":
+                hue = BitmapDescriptorFactory.HUE_YELLOW;
+                markerOptions = new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.defaultMarker(hue))
+                        .position(place)
+                        .title(mess);
+                return markerOptions;
+            default://красную обычную
+                markerOptions = new MarkerOptions()
+                        .position(place)
+                        .title(mess);
+                return markerOptions;
+        }
+
+    }
+
+    public void GetAllObjectinBD(FirebaseDatabase database)
+    {
+        DatabaseReference marksRef = database.getReference("markers");
+
+        marksRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                        String markerKey = childSnapshot.getKey();
+                        Mark marker = childSnapshot.getValue(Mark.class);
+                        listofmarks.put(markerKey,marker);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "List of marks is empty", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     private void requestLocationPermission() {
@@ -96,19 +217,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
-    }
-
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        my_Map = googleMap;
-        LatLng southwestBound = new LatLng(51.259920, 23.178448); // Юго-западная граница
-        LatLng northeastBound = new LatLng(56.166726, 32.767492); // Северо-восточная граница
-        LatLngBounds belarusBounds = new LatLngBounds(southwestBound, northeastBound);
-        int padding = 100; // Отступы в пикселях
-        my_Map.moveCamera(CameraUpdateFactory.newLatLngBounds(belarusBounds, padding));
-        MapSingleton.getInstance().setGoogleMap(googleMap);
-
-
     }
 
 
