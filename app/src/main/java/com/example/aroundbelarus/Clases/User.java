@@ -1,6 +1,8 @@
 package com.example.aroundbelarus.Clases;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class User
 {
@@ -11,6 +13,7 @@ public class User
     private String number;
     private boolean admin;
     private boolean moderator;
+    private ArrayList<Mark> favorits;
 
     public  User(){}
     public User(String name,String password, String Login, String email, String number)
@@ -22,6 +25,15 @@ public class User
         this.number = number;
         admin = false;
         moderator = false;
+        favorits = new ArrayList<>();
+
+    }
+    public ArrayList<Mark> getFavorits() {
+        return favorits;
+    }
+
+    public void setFavorits(ArrayList<Mark> favorits) {
+        this.favorits = favorits;
     }
 
     public String getName()

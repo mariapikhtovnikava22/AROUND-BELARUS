@@ -1,11 +1,15 @@
 package com.example.aroundbelarus;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Camera;
 import android.location.Address;
@@ -13,10 +17,15 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.Manifest;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.aroundbelarus.Clases.MapSingleton;
@@ -36,6 +45,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,11 +53,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     GoogleMap my_Map;
     ImageButton curLocbtn;
     final int FINE_PREMISSION_CODE = 1;
@@ -57,13 +68,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     DatabaseReference markersRef;
     String markerId;
     HashMap<String, Mark> listofmarks;
+    ConstraintLayout map_activ;
     SearchView mapserchView;
+    Button sortBtn;
+    boolean isMyLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        sortBtn = findViewById(R.id.sortbtn);
+
+        map_activ = findViewById(R.id.map_activity);
 
         mapserchView = findViewById(R.id.mapSearch);
 
@@ -72,21 +90,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         database = FirebaseDatabase.getInstance();
 
         GetAllObjectinBD(database);
-
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        curLocbtn = findViewById(R.id.cur_locationBut);
-        curLocbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getLastLocation();
-                Toast.makeText(MapActivity.this, "Hi", Toast.LENGTH_SHORT).show();
-                if (current_locatoin != null) {
-                    AddMark((float) current_locatoin.getLatitude(), (float) current_locatoin.getLongitude(), "You");
-                }
-            }
-        });
-
 
         mapserchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -117,10 +120,115 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 return false;
             }
         });
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         requestLocationPermission();
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        curLocbtn = findViewById(R.id.cur_locationBut);
+        curLocbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getLastLocation();
+                if (current_locatoin != null) {
+                    AddMark((float) current_locatoin.getLatitude(), (float) current_locatoin.getLongitude(), "You");
+                }
+            }
+        });
+
+        sortBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDialWin();
+            }
+        });
     }
+
+
+    public void createDialWin()
+    {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MapActivity.this);
+        LayoutInflater inflater = LayoutInflater.from(MapActivity.this);
+        View regWin = inflater.inflate(R.layout.sort, null);
+        dialog.setView(regWin);
+
+        CheckBox food,nature,hotels,entertainments,all,attractions;
+        food = regWin.findViewById(R.id.foodsel);
+        nature = regWin.findViewById(R.id.naturesel);
+        hotels = regWin.findViewById(R.id.hotelssel);
+        entertainments = regWin.findViewById(R.id.entertainmentssel);
+        all = regWin.findViewById(R.id.showallmap);
+        attractions = regWin.findViewById(R.id.attractionssel);
+
+        ArrayList<String> selectedValues = new ArrayList<>();
+
+
+        dialog.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (nature.isChecked()) {
+
+//                    Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
+                    selectedValues.add(nature.getText().toString());
+                }
+
+                if (food.isChecked()) {
+                    selectedValues.add(food.getText().toString());
+                }
+
+                if (hotels.isChecked()) {
+                    selectedValues.add(hotels.getText().toString());
+                }
+                if (entertainments.isChecked()) {
+                    selectedValues.add(entertainments.getText().toString());
+                }
+
+                if (all.isChecked()) {
+                    selectedValues.add(all.getText().toString());
+                }
+
+                if (attractions.isChecked()) {
+                    selectedValues.add(attractions.getText().toString());
+                }
+
+                if(selectedValues.size() != 0)
+                {
+                    if(selectedValues.size() == 1)
+                    {
+                        if(selectedValues.get(0).equals("all"))
+                        {
+                            for (Mark mark : listofmarks.values()) {
+                                        AddMarkonMap(mark.getLatitude(),mark.getLongitude(),mark.getName(),mark.getCategory());
+                                }
+                        }
+                    }
+                    for(String check : selectedValues)
+                    {
+                        if(check.equals("all"))
+                        {
+                            dialog.dismiss();
+                            return;
+                        }
+                    }
+                    my_Map.clear();
+                    for (Mark mark : listofmarks.values()) {
+                        for (String check : selectedValues)
+                        {
+                            if(mark.getCategory().equals(check))
+                            {
+                                AddMarkonMap(mark.getLatitude(),mark.getLongitude(),mark.getName(),mark.getCategory());
+                            }
+                        }
+                    }
+                }
+
+            }
+        });
+        dialog.show();
+    }
+
 
 
     @Override
@@ -137,13 +245,62 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 AddMarkonMap(mark.getLatitude(),mark.getLongitude(),mark.getName(),mark.getCategory());
             }
         }
+        my_Map.setOnMarkerClickListener(this);
     }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        String markerTitle = marker.getTitle();
+        LatLng markerPosition = marker.getPosition();
+        String description = "";
+        for (Mark mark : listofmarks.values()) {
+
+            if (mark.getName().equals(markerTitle)) {
+                description = mark.getDescription();
+            }
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(markerTitle)
+                .setMessage(description)
+                .setPositiveButton("Add to favorites", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setNegativeButton("Plot a route", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Код для построения маршрута
+                        String url = "https://www.google.com/maps/dir/?api=1&destination=" + markerPosition.latitude + "," + markerPosition.longitude;
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+                    }
+                });
+
+        // Отобразите диалоговое окно
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+        return true;
+    }
+
+
+
 
     public void AddMarkonMap(Float coord1, Float coord2, String mess, String typemark)
     {
         LatLng place = new LatLng(coord1, coord2);
         MarkerOptions markerOptions = setMark(typemark, place, mess);
         my_Map.addMarker(markerOptions);
+        if(isMyLocation)
+        {
+            float zoomLevel = 6.0f; // Уровень приближения
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place, zoomLevel);
+            my_Map.animateCamera(cameraUpdate);
+        }
 
     }
 
@@ -276,6 +433,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         float zoomLevel = 17.0f; // Уровень приближения
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place, zoomLevel);
         my_Map.animateCamera(cameraUpdate);
+        isMyLocation = true;
     }
 
     public void AddMark(Float coord1, Float coord2, String mess) {

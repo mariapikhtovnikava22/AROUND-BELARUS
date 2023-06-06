@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id = "@+id/sortacivity">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="357dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="109dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/abril_fatface"
+            android:text="Sort map"
+            android:textAlignment="center"
+            android:textColor="#0B0A0A"
+            android:textSize="25sp" />
+
+
+            <CheckBox
+                android:id="@+id/entertainmentssel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#3F51B5"
+
+                android:text="entertainments" />
+
+            <CheckBox
+                android:id="@+id/showallmap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#3F51B5"
+                android:checked="true"
+                android:text="all" />
+
+
+            <CheckBox
+                android:id="@+id/foodsel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#3F51B5"
+
+                android:text="food" />
+
+            <CheckBox
+                android:id="@+id/hotelssel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#3F51B5"
+
+                android:text="hotels" />
+
+            <CheckBox
+                android:id="@+id/naturesel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#3F51B5"
+
+                android:text="nature" />
+
+            <CheckBox
+                android:id="@+id/attractionssel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#3F51B5"
+
+                android:text="attractions" />
+
+
+            <CheckBox
+                android:id="@+id/historicalsel"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:buttonTint="#3F51B5"
+
+                android:text="historical" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

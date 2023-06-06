@@ -30,7 +30,7 @@
             android:enabled="true"
             android:textColorHint="#040000"
             app:boxBackgroundMode="outline"
-            app:endIconCheckable="false"
+            app:endIconCheckable="true"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -38,7 +38,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
-                android:enabled="false"
                 android:gravity="start"
                 android:hint="Mark Name"
                 android:inputType="textEmailAddress"
@@ -52,7 +51,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="7dp"
-            android:enabled="true"
             android:textColorHint="#040000"
             app:boxBackgroundMode="outline"
             app:endIconCheckable="false"
@@ -63,7 +61,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
-                android:enabled="false"
                 android:gravity="start"
                 android:hint="Latitude"
                 android:inputType="phone"
@@ -77,7 +74,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="7dp"
-            android:enabled="true"
             android:textColorHint="#040000"
             app:boxBackgroundMode="outline"
             app:endIconCheckable="false"
@@ -88,7 +84,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
-                android:enabled="false"
                 android:gravity="start"
                 android:hint="Longitude"
                 android:inputType="phone"
@@ -103,7 +98,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="7dp"
-            android:enabled="true"
             android:textColorHint="#040000"
             app:boxBackgroundMode="outline"
             app:counterEnabled="true"
@@ -116,7 +110,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
-                android:enabled="false"
                 android:gravity="top"
                 android:hint="Description"
                 android:inputType="textMultiLine"
@@ -155,7 +148,7 @@
                     android:id="@+id/entertainmentssel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:onClick="CheckButton"
                     android:buttonTint="#3F51B5"
                     android:text="entertainments" />
 
@@ -163,9 +156,7 @@
                     android:id="@+id/foodsel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:buttonTint="#3F51B5"
-
                     android:onClick="CheckButton"
                     android:text="food" />
 
@@ -173,9 +164,7 @@
                     android:id="@+id/hotelssel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:buttonTint="#3F51B5"
-
                     android:onClick="CheckButton"
                     android:text="hotels" />
 
@@ -183,7 +172,6 @@
                     android:id="@+id/naturesel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:buttonTint="#3F51B5"
                     android:onClick="CheckButton"
                     android:text="nature" />
@@ -201,7 +189,6 @@
                     android:id="@+id/historicalsel"
                     android:layout_width="104dp"
                     android:layout_height="wrap_content"
-
                     android:buttonTint="#3F51B5"
                     android:onClick="CheckButton"
                     android:text="historical" />
